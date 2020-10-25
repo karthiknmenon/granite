@@ -1,7 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
 
-const ListTasks = ({ tasks }) => {
+const TaskList = ({ tasks }) => {
     return (
         <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {tasks.map((object) => (
@@ -66,4 +66,4 @@ const ListTasks = ({ tasks }) => {
     )
 }
 
-export default ListTasks
+export default TaskList
