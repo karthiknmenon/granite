@@ -4,6 +4,8 @@ import API from '../../apis/Tasks'
 import classnames from 'classnames'
 const TaskList = () => {
     const [tasks, setTasks] = useState([])
+    const [title, setTitle] = useState('yyoyoy')
+    const [description, setDescription] = useState('yyoyoy')
     useEffect(() => {
         async function LoadTasks() {
             try {
@@ -18,6 +20,17 @@ const TaskList = () => {
     const deleteTask = async (taskId) => {
         try {
             const response = await API.deleteTaskById(taskId)
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const updateTask = async (taskId) => {
+        try {
+            const response = await API.updateTaskById(taskId, {
+                title,
+                description,
+            })
             console.log(response)
         } catch (error) {
             console.log(error)
@@ -67,6 +80,9 @@ const TaskList = () => {
                                         className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm leading-5 text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 transition ease-in-out duration-150"
                                         disabled={
                                             taskObject.status === 'archived'
+                                        }
+                                        onClick={() =>
+                                            updateTask(taskObject.id)
                                         }
                                     >
                                         Update
