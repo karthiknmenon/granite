@@ -1,5 +1,6 @@
 import React from 'react'
 import Container from '../Container'
+import Modal from '../Modal'
 import classnames from 'classnames'
 const TaskList = ({ tasks }) => {
     return (
