@@ -10,13 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_23_102831) do
+ActiveRecord::Schema.define(version: 2020_10_25_050751) do
 
   create_table "tasks", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "description"
-    t.text "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00007fe00a8a0920>"
+    t.text "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00007fab66714198>"
+    t.string "title"
+    t.string "status"
   end
 
 end
