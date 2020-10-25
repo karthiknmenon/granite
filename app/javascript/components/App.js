@@ -8,8 +8,8 @@ const App = () => {
     return (
         <Router>
             <Switch>
-                <Route exact path="/tasks/new" component={CreateTasks} />
-                <Route exact path="/ttt" component={TaskList} />
+                <Route exact path="/create-tasks" component={CreateTasks} />
+                <Route exact path="/view-tasks" component={TaskList} />
             </Switch>
         </Router>
     )
