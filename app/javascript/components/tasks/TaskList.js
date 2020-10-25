@@ -6,7 +6,6 @@ const TaskList = () => {
     const [tasks, setTasks] = useState([])
     useEffect(() => {
         async function LoadTasks() {
-            console.log('fetch')
             try {
                 const response = await API.loadTasks()
                 setTasks(response.data.tasks)
@@ -16,10 +15,18 @@ const TaskList = () => {
         }
         LoadTasks()
     }, [])
+    const deleteTask = async (taskId) => {
+        try {
+            const response = await API.deleteTaskById(taskId)
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <Container>
             <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {tasks?.map((object, index) => (
+                {tasks?.map((taskObject, index) => (
                     <li
                         className="col-span-1 bg-white rounded-lg shadow"
                         key={index}
@@ -28,27 +35,28 @@ const TaskList = () => {
                             <div className="flex-1 truncate">
                                 <div className="flex items-center space-x-3">
                                     <h3 className="text-gray-900 text-sm leading-5 font-medium truncate">
-                                        {object.title}
+                                        {taskObject.title}
                                     </h3>
                                     <span
                                         className={classnames(
                                             'flex-shrink-0 inline-block px-2 py-0.5 text-xs leading-4 font-medium rounded-full',
                                             {
                                                 'text-teal-800 bg-teal-100 ':
-                                                    object.status === 'active',
+                                                    taskObject.status ===
+                                                    'active',
                                             },
                                             {
                                                 'text-black bg-gray-200':
-                                                    object.status ===
+                                                    taskObject.status ===
                                                     'archived',
                                             }
                                         )}
                                     >
-                                        {object.status}
+                                        {taskObject.status}
                                     </span>
                                 </div>
                                 <p className="mt-1 text-gray-500 text-sm leading-5 truncate">
-                                    {object.description}
+                                    {taskObject.description}
                                 </p>
                             </div>
                         </div>
@@ -57,7 +65,9 @@ const TaskList = () => {
                                 <div className="w-0 flex-1 flex border-r border-gray-200">
                                     <button
                                         className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm leading-5 text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 transition ease-in-out duration-150"
-                                        disabled={object.status === 'archived'}
+                                        disabled={
+                                            taskObject.status === 'archived'
+                                        }
                                     >
                                         Update
                                     </button>
@@ -65,14 +75,19 @@ const TaskList = () => {
                                 <div className="-ml-px w-0 flex-1 flex border-r border-gray-200">
                                     <button
                                         className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm leading-5 text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 transition ease-in-out duration-150"
-                                        disabled={object.status === 'archived'}
+                                        disabled={
+                                            taskObject.status === 'archived'
+                                        }
+                                        onClick={() =>
+                                            deleteTask(taskObject.id)
+                                        }
                                     >
                                         Delete
                                     </button>
                                 </div>
                                 <div className="-ml-px w-0 flex-1 flex">
                                     <button className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm leading-5 text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 transition ease-in-out duration-150">
-                                        {object.status === 'archived'
+                                        {taskObject.status === 'archived'
                                             ? 'Unarchive'
                                             : 'Archive'}
                                     </button>

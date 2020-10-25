@@ -12,6 +12,15 @@ class TasksController < ApplicationController
         end   
     end
 
+    def destroy
+        @task = Task.find_by(params[:id])
+        if @task.destroy
+            render status: :ok, json: { notice: 'Task was successfully created' }
+        else            
+            render status: :unprocessable_entity, json: { errors: @task.errors.full_messages  }
+        end  
+    end
+
     private 
         def task_params
             params.permit(:description, :title, :status)
