@@ -43,12 +43,19 @@ const ListTasks = ({ tasks }) => {
                                     Update
                                 </button>
                             </div>
-                            <div className="-ml-px w-0 flex-1 flex">
+                            <div className="-ml-px w-0 flex-1 flex border-r border-gray-200">
                                 <button
                                     className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm leading-5 text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 transition ease-in-out duration-150"
                                     disabled={object.status === 'archived'}
                                 >
                                     Delete
+                                </button>
+                            </div>
+                            <div className="-ml-px w-0 flex-1 flex">
+                                <button className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm leading-5 text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 transition ease-in-out duration-150">
+                                    {object.status === 'archived'
+                                        ? 'Unarchive'
+                                        : 'Archive'}
                                 </button>
                             </div>
                         </div>
