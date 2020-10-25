@@ -1,7 +1,8 @@
 import React from 'react'
-import { Link, BrowserRouter as Router } from 'react-router-dom'
-
+import { Link, useLocation } from 'react-router-dom'
+import classnames from 'classnames'
 const NavBar = () => {
+    const currentLocation = useLocation()
     return (
         <nav className="bg-gray-800">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,13 +32,27 @@ const NavBar = () => {
                             <div className="flex">
                                 <Link
                                     to="/view-tasks"
-                                    className="px-3 py-2 rounded-md text-sm font-medium leading-5 text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
+                                    className={classnames(
+                                        'px-3 py-2 rounded-md text-sm font-medium leading-5 text-white focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out',
+                                        {
+                                            'bg-gray-900':
+                                                currentLocation.pathname ===
+                                                '/view-tasks',
+                                        }
+                                    )}
                                 >
                                     Home
                                 </Link>
                                 <Link
                                     to="/create-tasks"
-                                    className="ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
+                                    className={classnames(
+                                        'ml-4 px-3 py-2 rounded-md text-sm font-medium leading-5 text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out',
+                                        {
+                                            'bg-gray-900':
+                                                currentLocation.pathname ===
+                                                '/create-tasks',
+                                        }
+                                    )}
                                 >
                                     Create
                                 </Link>
