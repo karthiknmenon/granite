@@ -11,6 +11,8 @@ gem 'sqlite3', '~> 1.4', :group => [:development, :test]
 gem 'pg', :group => [:production]
 # Add React-Rails
 gem 'react-rails'
+# responders for format
+gem 'responders'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets

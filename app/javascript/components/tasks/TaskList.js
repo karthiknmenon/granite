@@ -1,12 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Container from '../Container'
-import Modal from '../Modal'
+import API from '../../apis/Tasks'
 import classnames from 'classnames'
-const TaskList = ({ tasks }) => {
+const TaskList = () => {
+    const [tasks, setTasks] = useState([])
+    useEffect(() => {
+        async function LoadTasks() {
+            console.log('fetch')
+            try {
+                const response = await API.loadTasks()
+                setTasks(response.data.tasks)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        LoadTasks()
+    }, [])
     return (
         <Container>
             <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {tasks.map((object, index) => (
+                {tasks?.map((object, index) => (
                     <li
                         className="col-span-1 bg-white rounded-lg shadow"
                         key={index}
