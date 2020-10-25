@@ -6,8 +6,11 @@ const TaskList = ({ tasks }) => {
     return (
         <Container>
             <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {tasks.map((object) => (
-                    <li className="col-span-1 bg-white rounded-lg shadow">
+                {tasks.map((object, index) => (
+                    <li
+                        className="col-span-1 bg-white rounded-lg shadow"
+                        key={index}
+                    >
                         <div className="w-full flex items-center justify-between p-6 space-x-6">
                             <div className="flex-1 truncate">
                                 <div className="flex items-center space-x-3">
