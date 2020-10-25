@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Container from '../Container'
 import API from '../../apis/Tasks'
 
@@ -16,10 +16,13 @@ const CreateTasks = () => {
         try {
             const response = await API.createTask({ title, description })
             console.log(response)
-            addToast('Task Created Successfully', { appearance: 'success' })
+            addToast('Task Created Successfully', {
+                appearance: 'success',
+                autoDismiss: true,
+            })
         } catch (error) {
             console.log(error)
-            addToast('Something Went Wrong 😐', { appearance: 'success' })
+            addToast('Something Went Wrong 😐', { appearance: 'error' })
         } finally {
             setSubmit(false)
         }
