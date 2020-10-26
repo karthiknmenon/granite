@@ -3,8 +3,13 @@ class TasksController < ApplicationController
         @tasks = Task.all
     end
 
+    def new 
+        @users = User.all        
+    end
+
     def create
         @task = Task.new(task_params)
+        p @task
         if @task.save!
             render status: :ok, json: { notice: 'Task was successfully created' }
         else            
@@ -32,6 +37,6 @@ class TasksController < ApplicationController
 
     private 
         def task_params
-            params.permit(:description, :title, :status)
+            params.permit(:description, :title, :status, :user_id)
         end
 end

@@ -7,9 +7,13 @@ import { useToasts } from 'react-toast-notifications'
 
 const TaskList = () => {
     const [tasks, setTasks] = useState([])
-    const [title, setTitle] = useState('yyoyoy')
+
+    const title = 'yyoyoy'
+    const description = 'yyoyoy'
+
     const [deleteTasks, setDeleteTask] = useState(false)
-    const [description, setDescription] = useState('yyoyoy')
+    const [updateTasks, setUpdateTask] = useState(false)
+
     const { addToast } = useToasts()
     async function LoadTasks() {
         try {
@@ -26,10 +30,20 @@ const TaskList = () => {
 
     useEffect(() => {
         if (deleteTasks) {
+            // console.log(
+            //     `[deleteTasks, updateTasks] useEffect inside If deleteTasks`
+            // )
             LoadTasks()
             setDeleteTask(false)
         }
-    }, [deleteTasks])
+        if (updateTasks) {
+            // console.log(
+            //     `[deleteTasks, updateTasks] useEffect inside If updateTasks`
+            // )
+            LoadTasks()
+            setUpdateTask(false)
+        }
+    }, [deleteTasks, updateTasks])
 
     const deleteTask = async (taskId) => {
         try {
@@ -38,7 +52,6 @@ const TaskList = () => {
                 appearance: 'success',
                 autoDismiss: true,
             })
-            console.log(response)
         } catch (error) {
             console.log(error)
             addToast('Something Went Wrong 😐', { appearance: 'error' })
@@ -53,9 +66,16 @@ const TaskList = () => {
                 title,
                 description,
             })
+            addToast('Task Updated Successfully', {
+                appearance: 'success',
+                autoDismiss: true,
+            })
             console.log(response)
         } catch (error) {
             console.log(error)
+            addToast('Something Went Wrong 😐', { appearance: 'error' })
+        } finally {
+            setUpdateTask(true)
         }
     }
     if (tasks.length > 0) {
@@ -93,6 +113,9 @@ const TaskList = () => {
                                     </div>
                                     <p className="mt-1 text-gray-500 text-sm leading-5 truncate">
                                         {taskObject.description}
+                                    </p>
+                                    <p className="mt-1 text-gray-400 text-sm leading-5 truncate">
+                                        {taskObject.user.name}
                                     </p>
                                 </div>
                             </div>
