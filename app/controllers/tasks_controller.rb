@@ -35,6 +35,17 @@ class TasksController < ApplicationController
         end  
     end
 
+    def archive 
+        @task = Task.find_by(params[:id])        
+        if @task.status == "active"
+            @task.update(status: "archived")
+            render status: :ok, json: { notice: 'Task was archived successfully' }
+        else
+            @task.update(status: "active")
+            render status: :ok, json: { notice: 'Task was unarchived successfully' }
+        end
+    end
+
     private 
         def task_params
             params.permit(:description, :title, :status, :user_id)
