@@ -8,4 +8,12 @@ const deleteTaskById = (id) => axios.delete(`/tasks/${id}`)
 
 const updateTaskById = (id, payload) => axios.patch(`/tasks/${id}`, payload)
 
-export default { createTask, loadTasks, deleteTaskById, updateTaskById }
+const archiveTaskById = (id) => axios.get(`/tasks/archive/${id}`)
+
+export default {
+    createTask,
+    loadTasks,
+    deleteTaskById,
+    updateTaskById,
+    archiveTaskById,
+}

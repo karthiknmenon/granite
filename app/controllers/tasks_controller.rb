@@ -28,10 +28,6 @@ class TasksController < ApplicationController
 
     def destroy
         @task = Task.find(params[:id])
-
-        p '--------------'
-        p params[:id]
-        p @task
         if @task.destroy
             render status: :ok, json: { notice: 'Task was deleted successfully' }
         else            
