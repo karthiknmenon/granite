@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2020_10_26_071652) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "description"
-    t.text "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00007fab66714198>"
+    t.text "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00007fd1b6858f10>"
     t.string "title"
     t.string "status"
     t.integer "user_id"

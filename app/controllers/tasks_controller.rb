@@ -18,7 +18,7 @@ class TasksController < ApplicationController
     end
 
     def update        
-        @task = Task.find_by(params[:id])
+        @task = Task.find(params[:id])
         if @task.update(task_params)
             render status: :ok, json: { notice: 'Task was updated successfully' }
         else            
@@ -27,12 +27,27 @@ class TasksController < ApplicationController
     end
 
     def destroy
-        @task = Task.find_by(params[:id])
+        @task = Task.find(params[:id])
+
+        p '--------------'
+        p params[:id]
+        p @task
         if @task.destroy
             render status: :ok, json: { notice: 'Task was deleted successfully' }
         else            
             render status: :unprocessable_entity, json: { errors: @task.errors.full_messages  }
         end  
+    end
+
+    def archive 
+        @task = Task.find(params[:id])        
+        if @task.status == "active"
+            @task.update(status: "archived")
+            render status: :ok, json: { notice: 'Task was archived successfully' }
+        else
+            @task.update(status: "active")
+            render status: :ok, json: { notice: 'Task was unarchived successfully' }
+        end
     end
 
     private 
