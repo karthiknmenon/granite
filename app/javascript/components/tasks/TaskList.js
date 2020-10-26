@@ -17,7 +17,7 @@ const TaskList = () => {
 
     const { addToast } = useToasts()
 
-    async function LoadTasks() {
+    const LoadTasks = async () => {
         try {
             const response = await API.loadTasks()
             setTasks(response.data.tasks)
@@ -25,25 +25,6 @@ const TaskList = () => {
             console.log(error)
         }
     }
-
-    useEffect(() => {
-        LoadTasks()
-    }, [])
-
-    useEffect(() => {
-        if (deleteTasks) {
-            LoadTasks()
-            setDeleteTask(false)
-        }
-        if (updateTasks) {
-            LoadTasks()
-            setUpdateTask(false)
-        }
-        if (archiveTasks) {
-            LoadTasks()
-            setArchiveTasks(false)
-        }
-    }, [deleteTasks, updateTasks, archiveTasks])
 
     const deleteTask = async (taskId) => {
         try {
@@ -70,7 +51,6 @@ const TaskList = () => {
                 appearance: 'success',
                 autoDismiss: true,
             })
-            console.log(response)
         } catch (error) {
             console.log(error)
             addToast('Something Went Wrong 😐', { appearance: 'error' })
@@ -93,6 +73,26 @@ const TaskList = () => {
             setArchiveTasks(true)
         }
     }
+
+    useEffect(() => {
+        LoadTasks()
+    }, [])
+
+    useEffect(() => {
+        if (deleteTasks) {
+            LoadTasks()
+            setDeleteTask(false)
+        }
+        if (updateTasks) {
+            LoadTasks()
+            setUpdateTask(false)
+        }
+        if (archiveTasks) {
+            LoadTasks()
+            setArchiveTasks(false)
+        }
+    }, [deleteTasks, updateTasks, archiveTasks])
+
     if (tasks.length > 0) {
         return (
             <Container>
