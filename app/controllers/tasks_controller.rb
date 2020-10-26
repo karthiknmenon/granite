@@ -1,4 +1,6 @@
-class TasksController < ApplicationController           
+class TasksController < ApplicationController    
+    before_action :authorize    
+    
     def index
         @tasks = Task.all
     end
@@ -9,7 +11,7 @@ class TasksController < ApplicationController
 
     def create
         @task = Task.new(task_params)
-        p @task
+        @task.creator_id = @current_user.id                       
         if @task.save!
             render status: :ok, json: { notice: 'Task was successfully created' }
         else            

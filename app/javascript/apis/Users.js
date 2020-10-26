@@ -6,4 +6,6 @@ const createNewUser = (payload) => axios.post('/users', payload)
 
 const logInUser = (payload) => axios.post('/sessions', payload)
 
-export default { getUsers, createNewUser, logInUser }
+const LogOutUser = () => axios.delete('/logout')
+
+export default { getUsers, createNewUser, logInUser, LogOutUser }

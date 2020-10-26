@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :users, only: [ :new, :create], defaults: {format: :json}
 
   resources :sessions, only: [ :new, :create], defaults: {format: :json}
+  delete '/logout' => 'sessions#destroy'
 
   root "home#index"
 

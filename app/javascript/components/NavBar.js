@@ -1,11 +1,22 @@
 import React from 'react'
 import LogOutSvg from '../../assets/images/logout.svg'
 import LogoWhite from '../../assets/images/logo-white.svg'
+import API from '../apis/Users'
 
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useHistory } from 'react-router-dom'
 import classnames from 'classnames'
 const NavBar = () => {
     const currentLocation = useLocation()
+    const history = useHistory()
+    const LogUserOut = async () => {
+        try {
+            const response = await API.LogOutUser()
+            history.push('/')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const pathName = [
         {
             to: '/view-tasks',
@@ -50,6 +61,7 @@ const NavBar = () => {
                             <button
                                 className="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
                                 aria-label="Notifications"
+                                onClick={LogUserOut}
                             >
                                 <img src={LogOutSvg} className="h-6 w-6" />
                             </button>
