@@ -13,6 +13,7 @@ const TaskList = () => {
 
     const [deleteTasks, setDeleteTask] = useState(false)
     const [updateTasks, setUpdateTask] = useState(false)
+    const [archiveTasks, setArchiveTasks] = useState(false)
 
     const { addToast } = useToasts()
 
@@ -31,20 +32,18 @@ const TaskList = () => {
 
     useEffect(() => {
         if (deleteTasks) {
-            // console.log(
-            //     `[deleteTasks, updateTasks] useEffect inside If deleteTasks`
-            // )
             LoadTasks()
             setDeleteTask(false)
         }
         if (updateTasks) {
-            // console.log(
-            //     `[deleteTasks, updateTasks] useEffect inside If updateTasks`
-            // )
             LoadTasks()
             setUpdateTask(false)
         }
-    }, [deleteTasks, updateTasks])
+        if (archiveTasks) {
+            LoadTasks()
+            setArchiveTasks(false)
+        }
+    }, [deleteTasks, updateTasks, archiveTasks])
 
     const deleteTask = async (taskId) => {
         try {
@@ -77,6 +76,21 @@ const TaskList = () => {
             addToast('Something Went Wrong 😐', { appearance: 'error' })
         } finally {
             setUpdateTask(true)
+        }
+    }
+
+    const archiveTask = async (taskId) => {
+        try {
+            const response = await API.archiveTaskById(taskId)
+            addToast(response.data.notice, {
+                appearance: 'success',
+                autoDismiss: true,
+            })
+        } catch (error) {
+            console.log(error)
+            addToast('Something Went Wrong 😐', { appearance: 'error' })
+        } finally {
+            setArchiveTasks(true)
         }
     }
     if (tasks.length > 0) {
@@ -149,7 +163,12 @@ const TaskList = () => {
                                         </button>
                                     </div>
                                     <div className="-ml-px w-0 flex-1 flex">
-                                        <button className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm leading-5 text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 transition ease-in-out duration-150">
+                                        <button
+                                            className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm leading-5 text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 transition ease-in-out duration-150"
+                                            onClick={() =>
+                                                archiveTask(taskObject.id)
+                                            }
+                                        >
                                             {taskObject.status === 'archived'
                                                 ? 'Unarchive'
                                                 : 'Archive'}
