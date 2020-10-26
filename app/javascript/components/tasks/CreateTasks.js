@@ -1,21 +1,29 @@
 import React, { useState, useEffect } from 'react'
 import Container from '../Container'
 import API from '../../apis/Tasks'
+import UsersAPI from '../../apis/Users'
 
 import classnames from 'classnames'
 import { useToasts } from 'react-toast-notifications'
+import Select from 'react-select'
 
 const CreateTasks = () => {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+    const [user_id, setUserId] = useState()
     const [submit, setSubmit] = useState(false)
+    const [options, setOptions] = useState([])
     const { addToast } = useToasts()
+
     const submitTask = async (e) => {
         e.preventDefault()
         setSubmit(true)
         try {
-            const response = await API.createTask({ title, description })
-            console.log(response)
+            const response = await API.createTask({
+                title,
+                description,
+                user_id,
+            })
             addToast('Task Created Successfully', {
                 appearance: 'success',
                 autoDismiss: true,
@@ -27,6 +35,19 @@ const CreateTasks = () => {
             setSubmit(false)
         }
     }
+
+    const fetchUserDetails = async () => {
+        try {
+            const response = await UsersAPI.getUsers()
+            setOptions(response.data.users)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchUserDetails()
+    }, [])
     return (
         <Container>
             <div className="bg-white py-16 px-4 overflow-hidden sm:px-6 lg:px-8 lg:py-24">
@@ -47,7 +68,7 @@ const CreateTasks = () => {
                                 </label>
                                 <div className="mt-1 relative rounded-md shadow-sm">
                                     <input
-                                        className="form-input py-3 px-4 block w-full transition ease-in-out duration-150"
+                                        className="form-input py-3 px-4 block w-full border-1 transition ease-in-out duration-150"
                                         placeholder="Enter Task Title"
                                         onChange={(e) =>
                                             setTitle(e.target.value)
@@ -56,13 +77,20 @@ const CreateTasks = () => {
                                 </div>
                             </div>
                             <div className="sm:col-span-2">
+                                <Select
+                                    options={options}
+                                    onChange={(e) => setUserId(e.value)}
+                                    isSearchable
+                                />
+                            </div>
+                            <div className="sm:col-span-2">
                                 <label className="block text-sm font-medium leading-5 text-gray-700">
                                     Task Description
                                 </label>
                                 <div className="mt-1 relative rounded-md shadow-sm">
                                     <textarea
                                         rows="4"
-                                        className="form-textarea py-3 px-4 block w-full transition ease-in-out duration-150"
+                                        className="form-textarea py-3 px-4 block w-full border-1 transition ease-in-out duration-150"
                                         placeholder="Enter Task Description"
                                         onChange={(e) =>
                                             setDescription(e.target.value)

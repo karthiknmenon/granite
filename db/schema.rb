@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_25_050751) do
+ActiveRecord::Schema.define(version: 2020_10_25_192745) do
 
   create_table "tasks", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -19,6 +19,14 @@ ActiveRecord::Schema.define(version: 2020_10_25_050751) do
     t.text "#<ActiveRecord::ConnectionAdapters::SQLite3::TableDefinition:0x00007fab66714198>"
     t.string "title"
     t.string "status"
+    t.integer "user_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "tasks", "users", on_delete: :cascade
 end

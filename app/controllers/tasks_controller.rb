@@ -3,6 +3,10 @@ class TasksController < ApplicationController
         @tasks = Task.all
     end
 
+    def new 
+        @users = User.all        
+    end
+
     def create
         @task = Task.new(task_params)
         if @task.save!
