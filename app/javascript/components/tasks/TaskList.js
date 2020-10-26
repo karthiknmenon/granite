@@ -114,6 +114,9 @@ const TaskList = () => {
                                     <p className="mt-1 text-gray-500 text-sm leading-5 truncate">
                                         {taskObject.description}
                                     </p>
+                                    <p className="mt-1 text-gray-400 text-sm leading-5 truncate">
+                                        {taskObject.user.name}
+                                    </p>
                                 </div>
                             </div>
                             <div className="border-t border-gray-200">
