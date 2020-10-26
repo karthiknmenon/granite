@@ -1,4 +1,6 @@
 import React from 'react'
+import SignIn from './SignIn'
+import SignUp from './SignUp'
 import TaskList from './tasks/TaskList'
 import CreateTasks from './tasks/CreateTasks'
 
@@ -12,6 +14,8 @@ const App = () => {
                 <Switch>
                     <Route exact path="/create-tasks" component={CreateTasks} />
                     <Route exact path="/view-tasks" component={TaskList} />
+                    <Route exact path="/sign-up" component={SignUp} />
+                    <Route exact path="/" component={SignIn} />
                 </Switch>
             </Router>
         </ToastProvider>
