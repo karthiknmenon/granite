@@ -2,11 +2,16 @@ import React, { useState } from 'react'
 import Logo from '../../assets/images/granite.svg'
 import API from '../apis/Users'
 
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import { useToasts } from 'react-toast-notifications'
+
 const SignUp = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [password_confirmation, setPasswordConfirmation] = useState('')
+    const history = useHistory()
+    const { addToast } = useToasts()
+
     const submitForm = async (e) => {
         e.preventDefault()
 
@@ -17,8 +22,10 @@ const SignUp = () => {
                 password_confirmation,
             })
             console.log(response)
+            history.push('/view-tasks')
         } catch (error) {
             console.log(error)
+            addToast('Something Went Wrong 😐', { appearance: 'error' })
         }
     }
     return (

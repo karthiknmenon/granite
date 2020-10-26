@@ -15,6 +15,7 @@ const TaskList = () => {
     const [updateTasks, setUpdateTask] = useState(false)
 
     const { addToast } = useToasts()
+
     async function LoadTasks() {
         try {
             const response = await API.loadTasks()

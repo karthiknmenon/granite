@@ -3,10 +3,13 @@ import API from '../apis/Users'
 import Logo from '../../assets/images/granite.svg'
 
 import { Link, useHistory } from 'react-router-dom'
+import { useToasts } from 'react-toast-notifications'
+
 const SignIn = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const history = useHistory()
+    const { addToast } = useToasts()
 
     const logInUser = async (e) => {
         e.preventDefault()
@@ -17,6 +20,7 @@ const SignIn = () => {
             history.push('/view-tasks')
         } catch (error) {
             console.log(error)
+            addToast('Something Went Wrong 😐', { appearance: 'error' })
         }
     }
     return (
