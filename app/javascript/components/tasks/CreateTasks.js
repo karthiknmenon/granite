@@ -68,7 +68,7 @@ const CreateTasks = () => {
                                 </label>
                                 <div className="mt-1 relative rounded-md shadow-sm">
                                     <input
-                                        className="form-input py-3 px-4 block w-full border-1 transition ease-in-out duration-150"
+                                        className="form-input py-3 px-4 border-solid border border-gray-300 block w-full border-1 transition ease-in-out duration-150"
                                         placeholder="Enter Task Title"
                                         onChange={(e) =>
                                             setTitle(e.target.value)
@@ -90,7 +90,7 @@ const CreateTasks = () => {
                                 <div className="mt-1 relative rounded-md shadow-sm">
                                     <textarea
                                         rows="4"
-                                        className="form-textarea py-3 px-4 block w-full border-1 transition ease-in-out duration-150"
+                                        className="form-textarea py-3 px-4 border-solid border border-gray-300 block w-full border-1 transition ease-in-out duration-150"
                                         placeholder="Enter Task Description"
                                         onChange={(e) =>
                                             setDescription(e.target.value)

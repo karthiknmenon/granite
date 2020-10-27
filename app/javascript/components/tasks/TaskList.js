@@ -4,6 +4,7 @@ import API from '../../apis/Tasks'
 
 import classnames from 'classnames'
 import { useToasts } from 'react-toast-notifications'
+import { useHistory } from 'react-router-dom'
 
 const TaskList = () => {
     const [tasks, setTasks] = useState([])
@@ -16,6 +17,7 @@ const TaskList = () => {
     const [archiveTasks, setArchiveTasks] = useState(false)
 
     const { addToast } = useToasts()
+    const history = useHistory()
 
     const LoadTasks = async () => {
         try {
@@ -74,6 +76,10 @@ const TaskList = () => {
         }
     }
 
+    const getDetailedTaskView = (id) => {
+        history.push(`/view-tasks/${id}`)
+    }
+
     useEffect(() => {
         LoadTasks()
     }, [])
@@ -99,12 +105,17 @@ const TaskList = () => {
                 <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {tasks?.map((taskObject, index) => (
                         <li
-                            className="col-span-1 bg-white rounded-lg shadow"
+                            className="col-span-1 bg-white rounded-lg cursor-pointer shadow"
                             key={index}
                         >
                             <div className="w-full flex items-center justify-between p-6 space-x-6">
                                 <div className="flex-1 truncate">
-                                    <div className="flex items-center space-x-3">
+                                    <div
+                                        className="flex items-center space-x-3"
+                                        onClick={() =>
+                                            getDetailedTaskView(taskObject.id)
+                                        }
+                                    >
                                         <h3 className="text-gray-900 text-sm leading-5 font-medium truncate">
                                             {taskObject.title}
                                         </h3>

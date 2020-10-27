@@ -3,7 +3,7 @@ class Task < ApplicationRecord
     validates :title, :description, presence: true
     validates :status,  inclusion: { in: ["active", "archived"] }
     belongs_to :user, optional: true
-
+    has_many :comments, dependent: :destroy
 
     def set_default_to_status
         self.status = "active" if status.blank? 

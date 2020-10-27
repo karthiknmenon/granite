@@ -2,6 +2,7 @@ import React from 'react'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import TaskList from './tasks/TaskList'
+import TaskView from './tasks/TaskView'
 import CreateTasks from './tasks/CreateTasks'
 
 import { ToastProvider } from 'react-toast-notifications'
@@ -14,6 +15,7 @@ const App = () => {
                 <Switch>
                     <Route exact path="/create-tasks" component={CreateTasks} />
                     <Route exact path="/view-tasks" component={TaskList} />
+                    <Route exact path="/view-tasks/:id" component={TaskView} />
                     <Route exact path="/sign-up" component={SignUp} />
                     <Route exact path="/" component={SignIn} />
                 </Switch>
