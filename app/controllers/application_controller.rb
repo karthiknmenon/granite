@@ -15,8 +15,8 @@ class ApplicationController < ActionController::Base
 
     private
 
-    def user_not_authorized
-        flash[:warning] = "All accesssable tasks are listed below."
-        redirect_to '/'
-    end
+        def user_not_authorized
+            flash[:warning] = "All accesssable tasks are listed below."
+            render json: { error: 'Permission Denied' }, status: 403
+        end
 end

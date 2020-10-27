@@ -23,7 +23,11 @@ const TaskCard = ({
             })
         } catch (error) {
             console.log(error)
-            addToast('Something Went Wrong 😐', { appearance: 'error' })
+            if (error.response.status === 403) {
+                addToast('Only Creator Can Delete 😈', { appearance: 'error' })
+            } else {
+                addToast('Something Went Wrong 😐', { appearance: 'error' })
+            }
         } finally {
             setDelete()
         }
