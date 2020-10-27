@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Container from '../Container'
+import Modal from '../Modal'
 import API from '../../apis/Tasks'
+import Form from '../Form'
 
 import classnames from 'classnames'
 import { useToasts } from 'react-toast-notifications'
@@ -9,9 +11,8 @@ import { useHistory } from 'react-router-dom'
 const TaskList = () => {
     const [tasks, setTasks] = useState([])
 
-    const title = 'yyoyoy'
-    const description = 'yyoyoy'
-
+    const [modal, setModal] = useState(false)
+    const [taskId, setTaskId] = useState('')
     const [deleteTasks, setDeleteTask] = useState(false)
     const [updateTasks, setUpdateTask] = useState(false)
     const [archiveTasks, setArchiveTasks] = useState(false)
@@ -40,24 +41,6 @@ const TaskList = () => {
             addToast('Something Went Wrong 😐', { appearance: 'error' })
         } finally {
             setDeleteTask(true)
-        }
-    }
-
-    const updateTask = async (taskId) => {
-        try {
-            const response = await API.updateTaskById(taskId, {
-                title,
-                description,
-            })
-            addToast('Task Updated Successfully', {
-                appearance: 'success',
-                autoDismiss: true,
-            })
-        } catch (error) {
-            console.log(error)
-            addToast('Something Went Wrong 😐', { appearance: 'error' })
-        } finally {
-            setUpdateTask(true)
         }
     }
 
@@ -153,9 +136,10 @@ const TaskList = () => {
                                             disabled={
                                                 taskObject.status === 'archived'
                                             }
-                                            onClick={() =>
-                                                updateTask(taskObject.id)
-                                            }
+                                            onClick={() => {
+                                                setModal(true)
+                                                setTaskId(taskObject.id)
+                                            }}
                                         >
                                             Update
                                         </button>
@@ -190,6 +174,16 @@ const TaskList = () => {
                         </li>
                     ))}
                 </ul>
+                <Modal
+                    open={modal}
+                    title="Update Task"
+                    closeModal={() => setModal(false)}
+                >
+                    <Form
+                        taskId={taskId}
+                        setUpdate={() => setUpdateTask(true)}
+                    />
+                </Modal>
             </Container>
         )
     } else {
