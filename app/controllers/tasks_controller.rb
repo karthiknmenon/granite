@@ -1,8 +1,8 @@
 class TasksController < ApplicationController    
-    before_action :authorize    
+    before_action :authorized    
     
     def index
-        @tasks = Task.all
+        @tasks = policy_scope(Task)
     end
 
     def new 
@@ -10,8 +10,9 @@ class TasksController < ApplicationController
     end
 
     def create
-        @task = Task.new(task_params)
-        @task.creator_id = @current_user.id                       
+        @task = Task.new(task_params)        
+        @task.creator_id = @current_user.id                               
+        authorize @task
         if @task.save!
             render status: :ok, json: { notice: 'Task was successfully created' }
         else            
@@ -21,6 +22,7 @@ class TasksController < ApplicationController
 
     def update        
         @task = Task.find(params[:id])
+        authorize @task
         if @task.update(task_params)
             render status: :ok, json: { notice: 'Task was updated successfully' }
         else            
@@ -30,6 +32,7 @@ class TasksController < ApplicationController
 
     def destroy
         @task = Task.find(params[:id])
+        authorize @task
         if @task.destroy
             render status: :ok, json: { notice: 'Task was deleted successfully' }
         else            
