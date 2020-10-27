@@ -53,10 +53,10 @@ const TaskView = () => {
     return (
         <Container>
             <div>
-                <h3 className="text-lg leading-6 font-medium text-gray-900">
+                <h1 className="text-xl pb-2 leading-6 font-bold text-gray-900">
                     {taskDetails.title}
-                </h3>
-                <p className="max-w-full border-t border-gray-200 py-2 text-sm leading-5 text-gray-500">
+                </h1>
+                <p className="max-w-full border-t border-gray-200 py-2 text-md leading-5 text-gray-800">
                     {taskDetails.description}
                 </p>
             </div>
@@ -64,7 +64,7 @@ const TaskView = () => {
                 <div className="mt-1 relative rounded-md shadow-sm">
                     <textarea
                         rows="4"
-                        className="form-textarea py-3 px-4 block w-full border-1 transition ease-in-out duration-150"
+                        className="form-textarea py-3 px-4 block w-full border-solid border border-gray-300 transition ease-in-out duration-150"
                         placeholder="Enter Comment Here"
                         onChange={(e) => setContent(e.target.value)}
                     ></textarea>
