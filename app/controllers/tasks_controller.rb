@@ -1,6 +1,17 @@
 class TasksController < ApplicationController    
     before_action :authorized    
-    
+
+    def show
+        @task = Task.find(params[:id])
+        authorize @task
+        @comments = @task.comments
+        if @comments.empty? 
+            render status: :ok, json: { notice: 'Comments Fetched Successfully', task: @task, comments: 'No Comments' }
+        else
+            render status: :ok, json: { notice: 'Comments Fetched Successfully', task: @task, comments: @comments }
+        end
+    end
+
     def index
         @tasks = policy_scope(Task)
     end
