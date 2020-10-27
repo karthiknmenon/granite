@@ -93,7 +93,7 @@ const TaskList = () => {
         }
     }, [deleteTasks, updateTasks, archiveTasks])
 
-    if (tasks?.length > 0) {
+    if (tasks.length !== undefined && tasks.length > 0) {
         return (
             <Container>
                 <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
