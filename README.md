@@ -1,24 +1,29 @@
-# README
+# Granite
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Heroku Deployment
 
-Things you may want to cover:
+```
+git add .
+git commit -m "commit-message"
+git push heroku HEAD:master
+```
 
-* Ruby version
+## Heroku DB - Migration
 
-* System dependencies
+`heroku run rake db:migrate`
 
-* Configuration
+## Running on local
 
-* Database creation
+```
+bundle install
+bundle exec rails db:migrate
+bundle exec rails server
+```
 
-* Database initialization
+## Reset Local DB
 
-* How to run the test suite
+`rake db:reset`
 
-* Services (job queues, cache servers, search engines, etc.)
+## Routes
 
-* Deployment instructions
-
-* ...
+`rake routes | grep "route-name"`
