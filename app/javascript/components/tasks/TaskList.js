@@ -33,6 +33,7 @@ const TaskList = () => {
         }
         if (updateTasks) {
             LoadTasks()
+            setModal(false)
             setUpdateTask(false)
         }
         if (archiveTasks) {

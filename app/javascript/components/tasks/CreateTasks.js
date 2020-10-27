@@ -5,6 +5,7 @@ import UsersAPI from '../../apis/Users'
 
 import classnames from 'classnames'
 import { useToasts } from 'react-toast-notifications'
+import { useHistory } from 'react-router-dom'
 import Select from 'react-select'
 
 const CreateTasks = () => {
@@ -14,7 +15,7 @@ const CreateTasks = () => {
     const [submit, setSubmit] = useState(false)
     const [options, setOptions] = useState([])
     const { addToast } = useToasts()
-
+    const history = useHistory()
     const submitTask = async (e) => {
         e.preventDefault()
         setSubmit(true)
@@ -28,6 +29,7 @@ const CreateTasks = () => {
                 appearance: 'success',
                 autoDismiss: true,
             })
+            history.push('/view-tasks')
         } catch (error) {
             console.log(error)
             addToast('Something Went Wrong 😐', { appearance: 'error' })
