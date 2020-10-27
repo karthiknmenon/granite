@@ -45,6 +45,7 @@ const Form = ({ setUpdate, taskId }) => {
     useEffect(() => {
         fetchUserDetails()
     }, [])
+
     return (
         <form className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
             <div className="sm:col-span-2">
