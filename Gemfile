@@ -13,6 +13,8 @@ gem 'pg', :group => [:production]
 gem 'react-rails'
 # responders for format
 gem 'responders'
+# Pundit
+gem "pundit"
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
