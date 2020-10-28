@@ -15,6 +15,8 @@ gem 'react-rails'
 gem 'responders'
 # Pundit
 gem "pundit"
+# sidekiq
+gem "sidekiq"
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets

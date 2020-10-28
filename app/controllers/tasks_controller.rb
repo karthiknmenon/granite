@@ -1,5 +1,7 @@
 class TasksController < ApplicationController    
+    
     before_action :authorized    
+    after_action :log_task_details, only: [:create]
 
     def show
         @task = Task.find(params[:id])
@@ -60,6 +62,10 @@ class TasksController < ApplicationController
             @task.update(status: "active")
             render status: :ok, json: { notice: 'Task was unarchived successfully' }
         end
+    end
+
+    def log_task_details
+        TaskLoggerJob.perform_later()
     end
 
     private 
